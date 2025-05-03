@@ -1,7 +1,6 @@
 package com.aj.auto.web.orangehrm.page;
 
 import com.aj.auto.web.orangehrm.base.OrangeHRMBase;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -43,13 +42,13 @@ WebElement password;
     }
 
 
-    public DashBoardPage login(String un, String pwd){
+    public HomePage login(String un, String pwd){
         setUserName(un);
         setPassword(pwd);
         clickSubmit();
 
 
-        return new DashBoardPage();
+        return new HomePage();
     }
 
 }

@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import java.time.Duration;
 import java.util.function.Function;
 
-public class DashBoardPage extends OrangeHRMBase {
+public class HomePage extends OrangeHRMBase {
 
 
     @FindBy(how = How.XPATH,using="//span[normalize-space()='Admin']")
@@ -26,7 +26,7 @@ public class DashBoardPage extends OrangeHRMBase {
 
 
 
-    public DashBoardPage()
+    public HomePage()
     {
 
         PageFactory.initElements(driver,this);
@@ -64,7 +64,10 @@ public class DashBoardPage extends OrangeHRMBase {
 
 
     }
-
+    public AdminPage clickOnAdminTab(){
+        adminTab.click();
+        return new AdminPage();
+    }
 
 
 }
