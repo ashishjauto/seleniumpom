@@ -1,6 +1,6 @@
 package com.aj.web.test.orangehrm;
 
-import com.aj.auto.web.orangehrm.device.browser.DesktopBrowserFactory;
+import com.aj.auto.web.orangehrm.base.OrangeHRMBase;
 import com.aj.auto.web.orangehrm.page.DashBoardPage;
 import com.aj.auto.web.orangehrm.page.LoginPage;
 import org.openqa.selenium.WebDriver;
@@ -9,40 +9,29 @@ import org.testng.annotations.*;
 
 import java.io.IOException;
 
-public class OrangeHRMDashBoardTest {
+public class OrangeHRMDashBoardTest extends OrangeHRMBase {
 
 
 
 
-    public static WebDriver driver ;
-    LoginPage testLogin = new LoginPage(driver);
+
+    LoginPage testLogin ;
     DashBoardPage dashBoardPage ;
 
     @BeforeClass
-    @Parameters({"browser", "env"})
-    public void beforeClass(@Optional("chrome") String browser, @Optional("dev") String env) throws IOException {
 
-        driver = DesktopBrowserFactory.getDriver(browser, "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
-
+    public void beforeClass() throws IOException {
+        initialization();
+        testLogin = new LoginPage();
+        dashBoardPage = testLogin.login("Admin","admin123");
     }
 
 
-    @Test
-    public void tc1_Login(){
 
-        LoginPage testLogin = new LoginPage(driver);
-        testLogin.setUserName("Admin");
-        testLogin.setPassword("admin123");
-        testLogin.clickSubmit();
-
-        Assert.assertTrue(driver.getCurrentUrl().contains("orange"));
-
-    }
 
 
     @Test
-    public void tc2_clickOnAdmin(){
-        dashBoardPage = new DashBoardPage(driver);
+    public void tc1_clickOnAdmin(){
         dashBoardPage.clickOnAdmin();
 
 
@@ -50,7 +39,7 @@ public class OrangeHRMDashBoardTest {
 
     }
     @Test
-    public void tc3_SearchUser(){
+    public void tc2_SearchUser(){
 
         dashBoardPage.searchUser("John");
               Assert.assertTrue(driver.getCurrentUrl().contains("orange"));
@@ -66,7 +55,7 @@ public class OrangeHRMDashBoardTest {
 
     @AfterClass
     public void closeAll(){
-        driver.quit();
+       driver.quit();
 
     }
 }

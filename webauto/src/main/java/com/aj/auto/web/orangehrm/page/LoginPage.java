@@ -1,12 +1,13 @@
 package com.aj.auto.web.orangehrm.page;
 
+import com.aj.auto.web.orangehrm.base.OrangeHRMBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage {
+public class LoginPage extends OrangeHRMBase {
 
 
 @FindBy(how = How.XPATH,using="//input[@placeholder='Username']")
@@ -22,12 +23,9 @@ WebElement password;
 
 
 
-private WebDriver driver;
-
- public LoginPage(WebDriver driver)
+ public LoginPage( )
  {
-    this.driver = driver;
-     PageFactory.initElements(driver,this);
+     PageFactory.initElements(driver, this);
  }
 
 
@@ -45,5 +43,13 @@ private WebDriver driver;
     }
 
 
+    public DashBoardPage login(String un, String pwd){
+        setUserName(un);
+        setPassword(pwd);
+        clickSubmit();
+
+
+        return new DashBoardPage();
+    }
 
 }

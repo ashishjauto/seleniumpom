@@ -1,22 +1,22 @@
 package com.aj.web.test.orangehrm;
 
+import com.aj.auto.web.orangehrm.base.OrangeHRMBase;
 import com.aj.auto.web.orangehrm.page.LoginPage;
-import com.aj.auto.web.orangehrm.device.browser.DesktopBrowserFactory;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.io.IOException;
 
-public class OrangeHRMLoginTest  {
+public class OrangeHRMLoginTest  extends OrangeHRMBase {
+    LoginPage loginPage;
 
-    public static WebDriver driver ;
 
     @BeforeClass
-    @Parameters({"browser", "env"})
-    public void beforeClass(@Optional("chrome") String browser, @Optional("dev") String env) throws IOException {
+    public void beforeClass() throws IOException {
 
-            driver = DesktopBrowserFactory.getDriver(browser, "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+        initialization();
+        loginPage = new LoginPage();
 
     }
 
@@ -24,11 +24,10 @@ public class OrangeHRMLoginTest  {
     @Test
     public void tc1_Login(){
 
-        LoginPage testLogin = new LoginPage(driver);
-        testLogin.setUserName("Admin");
-        testLogin.setPassword("admin123");
+        loginPage.setUserName("Admin");
+        loginPage.setPassword("admin123");
 
-        testLogin.clickSubmit();
+        loginPage.clickSubmit();
         Assert.assertTrue(driver.getCurrentUrl().contains("orange"));
 
     }
