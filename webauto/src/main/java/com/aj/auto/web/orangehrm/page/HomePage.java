@@ -1,5 +1,6 @@
 package com.aj.auto.web.orangehrm.page;
 
+import com.aj.auto.web.orangehrm.base.OrangeHRMBase;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -12,25 +13,22 @@ import org.openqa.selenium.support.ui.FluentWait;
 import java.time.Duration;
 import java.util.function.Function;
 
-public class DashBoardPage {
+public class HomePage extends OrangeHRMBase {
 
 
     @FindBy(how = How.XPATH,using="//span[normalize-space()='Admin']")
     WebElement adminTab;
 
-    @FindBy(how = How.XPATH,using="//input[@class='oxd-input oxd-input--focus']")
-    WebElement usernameSearch;
+    @FindBy(how = How.XPATH,using="//button[normalize-space()='Upgrade']")
+    WebElement upgardeButton;
 
 
 
 
 
-
-    private WebDriver driver;
-
-    public DashBoardPage(WebDriver driver)
+    public HomePage()
     {
-        this.driver = driver;
+
         PageFactory.initElements(driver,this);
     }
 
@@ -53,9 +51,9 @@ public class DashBoardPage {
             public Boolean apply(WebDriver arg0) {
 
                 while (true) {
-                    if (usernameSearch.isDisplayed()) {
+                    if (upgardeButton.isDisplayed()) {
 
-                     usernameSearch.sendKeys(userNameString);
+                        upgardeButton.click();
                         return true;
                     }
                     return false;
@@ -66,7 +64,10 @@ public class DashBoardPage {
 
 
     }
-
+    public AdminPage clickOnAdminTab(){
+        adminTab.click();
+        return new AdminPage();
+    }
 
 
 }
